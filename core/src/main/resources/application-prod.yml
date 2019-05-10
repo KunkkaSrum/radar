@@ -1,0 +1,21 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: CoreApplication
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tensquare_user?characterEncoding=UTF8&useSSL=true
+    name: root
+    password: 123456
+  thymeleaf:
+    mode: html5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

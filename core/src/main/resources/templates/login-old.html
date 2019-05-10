@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link rel="stylesheet" href="layui/css/layui.css"/>
+</head>
+<body>
+<script src="/layui/layui.js"></script>
+<h1>Login page</h1>
+<!--<p th:if="${loginError}" class="error">用户名或密码错误</p>-->
+<div class="layui-fluid">
+    <form class="layui-form" action="##" method="post" id="userForm">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" /> <br />
+        <input type="button" id="submit" />
+    </form>
+</div>
+
+<script>
+    console.log()
+    layui.use(['form', 'layer'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+        $("#submit").click(function () {
+            $.ajax({
+                type: 'post',
+                url:"/authentication/form",
+                data:$("#userForm").serialize(),
+                dataType:'json',
+                // contentType:"application/json;charset=UTF-8",
+                success: function (result) {
+                    console.log(result)
+                    if(result.code===2000) {
+                        window.location.href=result.msg;
+                    } else if(result.code === 2002) {
+                        layer.msg("登录失败，用户名或密码错误！");
+                    }
+                },
+                error:function (re) {
+
+                }
+            })
+        })
+
+    })
+</script>
+</body>
+</html>

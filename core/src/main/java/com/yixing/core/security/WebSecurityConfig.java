@@ -44,6 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+//    asdf
+
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();

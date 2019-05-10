@@ -3,6 +3,7 @@ package com.yixing.core.security;
 import com.yixing.core.security.authentication.*;
 //import com.yixing.core.security.code.ValidateCodeSecurityConfig;
 import com.yixing.core.security.code.ValidateCodeSecurityConfig;
+import com.yixing.core.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,12 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DefaultLogoutSuccessHandler logoutSuccessHandler;
     @Autowired
     private DefaultUserDetailsService userDetailService;
-        @Autowired
+    @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
     private DataSource dataSource;
 
-//    asdf
 
     @Bean
     public SessionRegistry sessionRegistry() {

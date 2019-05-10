@@ -48,7 +48,7 @@ public class SysUser {
     /**
      * 添加该用户的用户id
      */
-    private Integer insertUid;
+    private Integer roleId;
 
     /**
      * 注册时间
@@ -88,13 +88,13 @@ public class SysUser {
     public SysUser() {
     }
 
-    public SysUser(Integer id, String username, String mobile, String email, String password, Integer insertUid, LocalDateTime insertTime, LocalDateTime updateTime, Boolean isDel, Boolean isJob, String mcode, LocalDateTime sendTime, Integer version) {
+    public SysUser(Integer id, String username, String mobile, String email, String password, Integer roleId, LocalDateTime insertTime, LocalDateTime updateTime, Boolean isDel, Boolean isJob, String mcode, LocalDateTime sendTime, Integer version) {
         this.id = id;
         this.username = username;
         this.mobile = mobile;
         this.email = email;
         this.password = password;
-        this.insertUid = insertUid;
+        this.roleId = roleId;
         this.insertTime = insertTime;
         this.updateTime = updateTime;
         this.isDel = isDel;
@@ -144,12 +144,12 @@ public class SysUser {
         this.password = password;
     }
 
-    public Integer getInsertUid() {
-        return insertUid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setInsertUid(Integer insertUid) {
-        this.insertUid = insertUid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public LocalDateTime getInsertTime() {

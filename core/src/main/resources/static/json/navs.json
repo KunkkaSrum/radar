@@ -16,7 +16,6 @@
 			"title": "其他页面",
 			"icon": "&#xe630;",
 			"href": "",
-			"spread": false,
 			"children": [
 				{
 					"title": "404页面",
@@ -28,10 +27,10 @@
 					"title": "登录",
 					"icon": "&#xe609;",
 					"href": "page/login/login.html",
-					"spread": false,
-					"target": "_blank"
+					"spread": false
 				}
-			]
+			],
+			"spread": false
 		}
 	],
 	"memberCenter": [

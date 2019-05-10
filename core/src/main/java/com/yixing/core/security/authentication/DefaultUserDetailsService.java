@@ -46,13 +46,13 @@ public class DefaultUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不存在");
         }
 //        Map<String, Object> map = new HashMap<>(1);
-//        map.put("role_id", user.getInsertUid());
+//        map.put("role_id", user.getRoleId());
         // 添加权限
-//        List<RolePermission> rolePermission = iRolePermissionService.listRP(user.getInsertUid());
+//        List<RolePermission> rolePermission = iRolePermissionService.listRP(user.getRoleId());
 //        System.out.println(rolePermission.size());
 //        for (SysUserRole userRole : userRoles) {
 //            SysRole role = roleService.getById(userRole.getRoleId());
-            authorities.add(new SimpleGrantedAuthority(user.getInsertUid().toString()));
+            authorities.add(new SimpleGrantedAuthority(user.getRoleId().toString()));
 //        }
 
         // 返回UserDetails实现类

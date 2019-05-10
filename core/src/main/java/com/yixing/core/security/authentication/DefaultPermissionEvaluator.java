@@ -45,7 +45,7 @@ public class DefaultPermissionEvaluator implements PermissionEvaluator {
                 // 获取权限集
 //                List permissions = rolePermission.getPermissions();
                 // 如果访问的Url和权限用户符合的话，返回true
-                if(targetUrl.equals(rolePermission.getPage())) {
+                if(targetUrl.equals(rolePermission.getHref())) {
                     System.out.println(targetUrl);
                     return true;
                 }

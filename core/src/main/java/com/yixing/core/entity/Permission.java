@@ -55,6 +55,8 @@ public class Permission {
      */
     private String code;
 
+    private String title;
+
     /**
      * 菜单图标名称
      */
@@ -63,7 +65,7 @@ public class Permission {
     /**
      * 菜单url
      */
-    private String page;
+    private String href;
 
     /**
      * 添加时间
@@ -78,7 +80,7 @@ public class Permission {
     public Permission() {
     }
 
-    public Permission(Integer id, String name, Integer pid, Integer zindex, Integer istype, String descpt, String code, String icon, String page, LocalDateTime insertTime, LocalDateTime updateTime) {
+    public Permission(Integer id, String name, Integer pid, Integer zindex, Integer istype, String descpt, String code, String icon, String href, LocalDateTime insertTime, LocalDateTime updateTime) {
         this.id = id;
         this.name = name;
         this.pid = pid;
@@ -87,7 +89,7 @@ public class Permission {
         this.descpt = descpt;
         this.code = code;
         this.icon = icon;
-        this.page = page;
+        this.href = href;
         this.insertTime = insertTime;
         this.updateTime = updateTime;
     }
@@ -157,12 +159,12 @@ public class Permission {
         this.icon = icon;
     }
 
-    public String getPage() {
-        return page;
+    public String getHref() {
+        return href;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setHref(String href) {
+        this.href = href;
     }
 
     public LocalDateTime getInsertTime() {

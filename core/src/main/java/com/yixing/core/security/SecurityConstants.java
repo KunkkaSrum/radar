@@ -23,6 +23,7 @@ public class SecurityConstants {
      * Session 过期被引导跳转的 Url
      */
     public static final String INVALID_SESSION_URL = "/login";
+    public static final String PAGE_404 = "/404";
 
     /**
      * 用户名密码登录请求处理url

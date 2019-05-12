@@ -2,6 +2,7 @@ package com.yixing.core.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yixing.core.model.ResultMap;
+import com.yixing.core.security.SecurityConstants;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -18,11 +19,11 @@ public class DefaultExpiredSessionStrategy implements SessionInformationExpiredS
 
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
-        ResultMap resultMap = new ResultMap(getClass().getName() + ":onExpiredSessionDetected()",
-                "您的 Session 已过期，请重新登录。" + event.getSessionInformation().getLastRequest());
-        String json = objectMapper.writeValueAsString(resultMap);
-
-        event.getResponse().setContentType("application/json;charset=UTF-8");
-        event.getResponse().getWriter().write(json);
+//        ResultMap resultMap = new ResultMap(getClass().getName() + ":onExpiredSessionDetected()",
+//                "您的登录已过期，请重新登录。");
+//        String json = objectMapper.writeValueAsString(resultMap);
+//
+//        event.getResponse().setContentType("application/json;charset=UTF-8");
+        event.getResponse().sendRedirect(SecurityConstants.PAGE_404);
     }
 }

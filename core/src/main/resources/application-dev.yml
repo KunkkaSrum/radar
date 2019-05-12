@@ -12,7 +12,6 @@ spring:
     password: 123456
     username: root
   thymeleaf:
-
     encoding: UTF-8
     prefix: classpath:/templates/
     suffix: .html

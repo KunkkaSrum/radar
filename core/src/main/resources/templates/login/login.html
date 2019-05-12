@@ -47,6 +47,8 @@
 <!--<script type="text/javascript" src="/js/cache.js"></script>-->
 </body>
 <script>
+
+
     function refresh(obj) {
         obj.src = "/code/getVerifyCode?" + Math.random();
     }
@@ -60,7 +62,10 @@
         var form = layui.form,
             layer = parent.layer === undefined ? layui.layer : top.layer
         $ = layui.jquery;
-
+        if(window !=top){
+            layer.msg("登录已过期，请重新登陆。");
+            setTimeout(function (){top.location.href=location.href}, 3000);
+        }
         $(".loginBody .seraph").click(function () {
             layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧", {
                 time: 5000
@@ -76,9 +81,15 @@
                 dataType: 'json',
                 // contentType:"application/json;charset=UTF-8",
                 success: function (result) {
-                    console.log(result)
+                    console.log(result);
                     if (result.code === 2000) {
-                        window.location.href = result.msg;
+                        var index = parent.layer.getFrameIndex(window.name);
+
+                        if(index) {
+                            window.parent.location.reload();
+                        } else {
+                            window.location.href = result.msg;
+                        }
                     } else if (result.code === 2002) {
                         layer.msg("登录失败，用户名或密码错误！");
                     }

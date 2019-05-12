@@ -31,6 +31,11 @@ public class UrlController {
         return "403";
     }
 
+    @RequestMapping("/404")
+    public String Page404() {
+        return "404";
+    }
+
     @RequestMapping("/login")
     public String login() {
         return "login/login";

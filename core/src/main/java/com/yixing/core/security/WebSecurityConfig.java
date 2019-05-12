@@ -128,7 +128,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 如果有允许匿名的url，填在下面
                 .antMatchers(
                         SecurityConstants.VALIDATE_CODE_URL_PREFIX + "/*",
-                        SecurityConstants.INVALID_SESSION_URL
+                        SecurityConstants.INVALID_SESSION_URL,
+                        SecurityConstants.PAGE_404
                 ).permitAll()
                 .anyRequest()
                 .authenticated().and()

@@ -24,20 +24,69 @@
             <version>2.3.28</version>
         </dependency>
     </dependencies>
+
     <build>
         <resources>
             <!--引入静态文件-->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>static/layui/font/**</exclude>
+                    <exclude>**/*.woff</exclude>
+                    <exclude>**/*.woff2</exclude>
+                    <exclude>**/*.ttf</exclude>
+                    <exclude>**/*.svg</exclude>
+                    <exclude>**/*.eot</exclude>
+                </excludes>
             </resource>
-            <!--引入mapper对应的xml文件-->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>mapper/*.xml</include>
                 </includes>
+                <excludes>
+                    <exclude>static/**/*</exclude>
+                    <exclude>templates/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>static/layui/font/**</include>
+                    <include>templates/**</include>
+                    <include>**/*.woff</include>
+                    <include>**/*.woff2</include>
+                    <include>**/*.ttf</include>
+                    <include>**/*.svg</include>
+                    <include>**/*.eot</include>
+                </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                    <!-- 不添加此节点，编译时会修改损坏字体的二进制文件 -->
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources/static</directory>
+                            <filtering>false</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

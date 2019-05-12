@@ -12,15 +12,16 @@ spring:
     password: 123456
     username: root
   thymeleaf:
-    mode: html5
+
     encoding: UTF-8
-    servlet:
-      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
     cache: false
+
 logging:
   config: classpath:log4j2.xml
 mybatis-plus:
-    mapper-locations: classpath:mapper/*Mapper.xml
-    type-aliases-package: com.yixing.core.entity
-    configuration:
-      map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.yixing.core.entity
+  configuration:
+    map-underscore-to-camel-case: true

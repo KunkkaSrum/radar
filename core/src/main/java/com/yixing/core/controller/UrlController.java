@@ -49,4 +49,26 @@ public class UrlController {
     public ResultMap codeError() {
         return new ResultMap(getClass().getName() + ":codeError()", "验证码输入错误");
     }
+
+    /****************用户管理***************/
+    @RequestMapping("/user/list")
+    @PreAuthorize("hasPermission('/user/list','r')")
+    public String userList() {
+        return "user/userList";
+    }
+
+    @RequestMapping("/user/add")
+    public String userAdd() {
+        return "user/userAdd";
+    }
+
+    @RequestMapping("/user/info")
+    public String userInfo() {
+        return "user/userInfo";
+    }
+
+    @RequestMapping("/user/grade")
+    public String userGrade() {
+        return "user/userGrade";
+    }
 }

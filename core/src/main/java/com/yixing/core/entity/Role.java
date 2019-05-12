@@ -44,7 +44,7 @@ public class Role {
     /**
      * 操作用户id
      */
-    private Integer insertUid;
+    private Integer roleId;
 
     /**
      * 添加数据时间
@@ -59,12 +59,12 @@ public class Role {
     public Role() {
     }
 
-    public Role(Integer id, String roleName, String descpt, String code, Integer insertUid, LocalDateTime insertTime, LocalDateTime updateTime) {
+    public Role(Integer id, String roleName, String descpt, String code, Integer roleId, LocalDateTime insertTime, LocalDateTime updateTime) {
         this.id = id;
         this.roleName = roleName;
         this.descpt = descpt;
         this.code = code;
-        this.insertUid = insertUid;
+        this.roleId = roleId;
         this.insertTime = insertTime;
         this.updateTime = updateTime;
     }
@@ -101,12 +101,12 @@ public class Role {
         this.code = code;
     }
 
-    public Integer getInsertUid() {
-        return insertUid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setInsertUid(Integer insertUid) {
-        this.insertUid = insertUid;
+    public void setInsertUid(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public LocalDateTime getInsertTime() {

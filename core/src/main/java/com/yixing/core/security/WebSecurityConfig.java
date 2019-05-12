@@ -1,8 +1,6 @@
 package com.yixing.core.security;
 
 import com.yixing.core.security.authentication.*;
-//import com.yixing.core.security.code.ValidateCodeSecurityConfig;
-import com.yixing.core.security.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +18,8 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
+
+//import com.yixing.core.security.code.ValidateCodeSecurityConfig;
 
 /**
  * Spring Security 核心配置类
@@ -39,12 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DefaultLogoutSuccessHandler logoutSuccessHandler;
     @Autowired
     private DefaultUserDetailsService userDetailService;
-        @Autowired
-    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+//    @Autowired
+//    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
     private DataSource dataSource;
 
-//    asdf
 
     @Bean
     public SessionRegistry sessionRegistry() {
@@ -140,7 +139,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 设置拦截忽略文件夹，可以对静态资源放行
-        web.ignoring().antMatchers("/layui/**", "/js/**", "/css/**", "/json/**", "/images/**");
+        web.ignoring().antMatchers("/layui/**", "/js/**", "/css/**", "/json/**", "/images/**","/layui/font/**","/layui/css/**");
 
     }
 }

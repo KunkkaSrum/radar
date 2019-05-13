@@ -43,7 +43,7 @@
         {
           "title": "账号管理",
           "icon": "&#xe61c;",
-          "href": "/user/list",
+          "href": "/account",
           "spread": false
         },
         {

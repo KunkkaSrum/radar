@@ -1,17 +1,13 @@
 package com.yixing.core.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yixing.core.entity.SysUser;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.StatusCode;
 import com.yixing.core.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -28,15 +24,19 @@ public class UserController  {
     @Autowired
     private IUserService iUserService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResultData listUser() {
-        List<SysUser> users = iUserService.list();
-        return new ResultData(users.size(), StatusCode.OK, "查询成功！", users);
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResultData listUser(@RequestBody(required = false)SysUser sysUser,
+                               @RequestParam("page") int page,
+                               @RequestParam("limit") int size) {
+        SysUser sysUser1 = new SysUser();
+        IPage<SysUser> userIPage = iUserService.selectPage(sysUser1,page,size);
+        return new ResultData(userIPage.getTotal(), 0, "查询成功！", userIPage.getRecords());
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ResultData listUser(@RequestParam("username")String username) {
-
-        return new ResultData(1, StatusCode.OK, "查询成功！", iUserService.getByUserName(username));
+        return new ResultData(1, 0, "查询成功！", iUserService.getByUserName(username));
     }
+
+
 }

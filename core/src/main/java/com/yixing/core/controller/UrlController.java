@@ -1,9 +1,7 @@
 package com.yixing.core.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yixing.core.dao.PermissionMapper;
 import com.yixing.core.dao.UserMapper;
-import com.yixing.core.entity.SysUser;
 import com.yixing.core.model.ResultMap;
 import com.yixing.core.security.SecurityConstants;
 import com.yixing.core.service.IUserService;
@@ -56,24 +54,33 @@ public class UrlController {
     }
 
     /****************用户管理***************/
-    @RequestMapping("/user/list")
-    @PreAuthorize("hasPermission('/user/list','r')")
+    @RequestMapping("/account")
+    public String account() {
+        return "user/account/account";
+    }
+
+    @RequestMapping("/account/opt")
+    public String accountOpt() {
+        return "user/account/accountOpt";
+    }
+
+    @RequestMapping("/role")
+    public String role() {
+        return "user/role/role";
+    }
+
+    @RequestMapping("/role/opt")
+    public String roleOpt() {
+        return "user/role/roleOpt";
+    }
+
+    @RequestMapping("/permission")
     public String userList() {
-        return "user/userList";
+        return "user/permission/permission";
     }
 
-    @RequestMapping("/user/add")
+    @RequestMapping("/permission/opt")
     public String userAdd() {
-        return "user/userAdd";
-    }
-
-    @RequestMapping("/user/info")
-    public String userInfo() {
-        return "user/userInfo";
-    }
-
-    @RequestMapping("/user/grade")
-    public String userGrade() {
-        return "user/userGrade";
+        return "user/permission/permissionOpt";
     }
 }

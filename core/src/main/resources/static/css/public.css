@@ -17,6 +17,9 @@
 .main_btn .layui-btn{ margin:2px 5px 2px 0;}
 .layui-timeline-axis{ left:-4px;}
 .layui-elem-quote{ word-break: break-all;}
+.layui-layout-admin .layui-body {
+    bottom: 0;
+}
 .icons li,.icons li:hover,.loginBody .seraph,.loginBody .seraph:hover,.loginBody .layui-form-item.layui-input-focus label,.loginBody .layui-form-item label,.loginBody .layui-form-item.layui-input-focus input,.loginBody .layui-form-item input{transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;}
 .icons li:hover i,.icons li i{transition: font-size 0.3s ease-in-out;-webkit-transition: font-size 0.3s ease-in-out;}
 .loginBody .layui-input-focus .layui-input::-webkit-input-placeholder{transition: color 0.2s linear 0.2s;-webkit-transition: color 0.2s linear 0.2s;}

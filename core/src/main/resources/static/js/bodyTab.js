@@ -146,7 +146,7 @@ layui.define(["element","jquery"],function(exports){
 				}
 			}
 			//已打开的窗口中不存在
-			if(that.hasTab(_this.find("cite").text()) == -1 && _this.siblings("dl.layui-nav-child").length == 0){
+			// if(that.hasTab(_this.find("cite").text()) == -1 && _this.siblings("dl.layui-nav-child").length == 0){
 				if($(".layui-tab-title.top_tab li").length == openTabNum){
 					layer.msg('只能同时打开'+openTabNum+'个选项卡哦。不然系统会卡的！');
 					return;
@@ -171,18 +171,18 @@ layui.define(["element","jquery"],function(exports){
 				window.sessionStorage.setItem("curmenu",JSON.stringify(curmenu));  //当前的窗口
 				element.tabChange(tabFilter, that.getLayId(_this.find("cite").text()));
 				that.tabMove(); //顶部窗口是否可滚动
-			}else{
-				//当前窗口内容
-				var curmenu = {
-					"icon" : _this.find("i.seraph").attr("data-icon")!=undefined ? _this.find("i.seraph").attr("data-icon") : _this.find("i.layui-icon").attr("data-icon"),
-					"title" : _this.find("cite").text(),
-					"href" : _this.attr("data-url")
-				}
-                that.changeRegresh(_this.parent('.layui-nav-item').index());
-				window.sessionStorage.setItem("curmenu", JSON.stringify(curmenu));  //当前的窗口
-				element.tabChange(tabFilter, that.getLayId(_this.find("cite").text()));
-				that.tabMove(); //顶部窗口是否可滚动
-			}
+			// }else{
+			// 	//当前窗口内容
+			// 	var curmenu = {
+			// 		"icon" : _this.find("i.seraph").attr("data-icon")!=undefined ? _this.find("i.seraph").attr("data-icon") : _this.find("i.layui-icon").attr("data-icon"),
+			// 		"title" : _this.find("cite").text(),
+			// 		"href" : _this.attr("data-url")
+			// 	}
+            //     that.changeRegresh(_this.parent('.layui-nav-item').index());
+			// 	window.sessionStorage.setItem("curmenu", JSON.stringify(curmenu));  //当前的窗口
+			// 	element.tabChange(tabFilter, that.getLayId(_this.find("cite").text()));
+			// 	that.tabMove(); //顶部窗口是否可滚动
+			// }
 		}
 	}
 

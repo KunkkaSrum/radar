@@ -185,8 +185,18 @@
                     // $.get("删除文章接口",{
                     //     newsId : data.newsId  //将需要删除的newsId作为参数传入
                     // },function(data){
-                    tableIns.reload();
-                    layer.close(index);
+                    $.ajax({
+                        url:"/core/user/delete",
+                        type:"post",
+                        data: {"userNo": data.userNo},
+                        success:function (result) {
+                            if(result.code===2000) {
+                                layer.close(index);
+                                layer.msg("删除成功");
+                                table.reload("newsListTable");
+                            }
+                        }
+                    })
                     // })
                 });
             }

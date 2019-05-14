@@ -2,6 +2,10 @@ package com.yixing.core.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -30,6 +34,7 @@ public class SysUser {
      * 用户名
      */
     @TableId
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long userNo;
     private String username;
 
@@ -46,6 +51,7 @@ public class SysUser {
     /**
      * 密码
      */
+    @JsonIgnore
     private String password;
 
     /**
@@ -56,11 +62,13 @@ public class SysUser {
     /**
      * 注册时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime insertTime;
 
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     /**
@@ -81,6 +89,7 @@ public class SysUser {
     /**
      * 短信发送时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime sendTime;
 
     /**

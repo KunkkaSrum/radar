@@ -1,6 +1,9 @@
 package com.yixing.core.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,6 +29,10 @@ public class Role {
 
     @Id
     private Integer id;
+
+    @TableId
+    @JsonSerialize(using= ToStringSerializer.class)
+    private Long roleNo;
     /**
      * 角色名称
      */
@@ -42,11 +49,6 @@ public class Role {
     private String code;
 
     /**
-     * 操作用户id
-     */
-    private Integer roleId;
-
-    /**
      * 添加数据时间
      */
     private LocalDateTime insertTime;
@@ -59,22 +61,28 @@ public class Role {
     public Role() {
     }
 
-    public Role(Integer id, String roleName, String descpt, String code, Integer roleId, LocalDateTime insertTime, LocalDateTime updateTime) {
-        this.id = id;
-        this.roleName = roleName;
-        this.descpt = descpt;
-        this.code = code;
-        this.roleId = roleId;
-        this.insertTime = insertTime;
-        this.updateTime = updateTime;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getRoleNo() {
+        return roleNo;
+    }
+
+    public void setRoleNo(Long roleNo) {
+        this.roleNo = roleNo;
+    }
+
+    public String getDescpt() {
+        return descpt;
+    }
+
+    public void setDescpt(String descpt) {
+        this.descpt = descpt;
     }
 
     public String getRoleName() {
@@ -99,14 +107,6 @@ public class Role {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setInsertUid(Integer roleId) {
-        this.roleId = roleId;
     }
 
     public LocalDateTime getInsertTime() {

@@ -1,6 +1,9 @@
 package com.yixing.core.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
@@ -24,6 +27,10 @@ public class Permission {
     private static final long serialVersionUID = 1L;
     @Id
     private Integer id;
+
+    @TableId
+    @JsonSerialize(using= ToStringSerializer.class)
+    private Long permissionNo;
 
     /**
      * 菜单名称
@@ -80,20 +87,13 @@ public class Permission {
     public Permission() {
     }
 
-    public Permission(Integer id, String name, Integer pid, Integer zindex, Integer istype, String descpt, String code, String icon, String href, LocalDateTime insertTime, LocalDateTime updateTime) {
-        this.id = id;
-        this.name = name;
-        this.pid = pid;
-        this.zindex = zindex;
-        this.istype = istype;
-        this.descpt = descpt;
-        this.code = code;
-        this.icon = icon;
-        this.href = href;
-        this.insertTime = insertTime;
-        this.updateTime = updateTime;
+    public Long getPermissionNo() {
+        return permissionNo;
     }
 
+    public void setPermissionNo(Long permissionNo) {
+        this.permissionNo = permissionNo;
+    }
 
     public String getDescpt() {
         return descpt;

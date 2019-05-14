@@ -1,5 +1,6 @@
 package com.yixing.core.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +29,8 @@ public class SysUser {
     /**
      * 用户名
      */
+    @TableId
+    private Long userNo;
     private String username;
 
     /**
@@ -88,20 +91,10 @@ public class SysUser {
     public SysUser() {
     }
 
-    public SysUser(Integer id, String username, String mobile, String email, String password, Integer roleId, LocalDateTime insertTime, LocalDateTime updateTime, Boolean isDel, Boolean isJob, String mcode, LocalDateTime sendTime, Integer version) {
-        this.id = id;
-        this.username = username;
-        this.mobile = mobile;
-        this.email = email;
-        this.password = password;
-        this.roleId = roleId;
-        this.insertTime = insertTime;
-        this.updateTime = updateTime;
-        this.isDel = isDel;
-        this.isJob = isJob;
-        this.mcode = mcode;
-        this.sendTime = sendTime;
-        this.version = version;
+
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -110,6 +103,14 @@ public class SysUser {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(Long userNo) {
+        this.userNo = userNo;
     }
 
     public String getUsername() {

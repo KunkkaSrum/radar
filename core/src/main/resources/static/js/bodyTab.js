@@ -85,6 +85,7 @@ layui.define(["element","jquery"],function(exports){
 		//显示左侧菜单
 		var _this = this;
 		$(".navBar ul").html('<li class="layui-nav-item layui-this"><a data-url="/main"><i class="layui-icon" data-icon=""></i><cite>监控布防</cite></a></li>').append(_this.navBar(dataStr)).height($(window).height()-210);
+		// $(".navBar ul").html('').append(_this.navBar(dataStr)).height($(window).height()-210);
 		element.init();  //初始化页面元素
 		$(window).resize(function(){
 			$(".navBar").height($(window).height()-210);

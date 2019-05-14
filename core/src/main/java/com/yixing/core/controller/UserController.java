@@ -6,8 +6,11 @@ import com.yixing.core.entity.SysUser;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.StatusCode;
 import com.yixing.core.service.IUserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * <p>
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/core/user")
 public class UserController  {
+
+    private static Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
     private IUserService iUserService;
@@ -38,5 +43,26 @@ public class UserController  {
         return new ResultData(1, 0, "查询成功！", iUserService.getByUserName(username));
     }
 
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResultData addUser(@RequestBody SysUser sysUser) {
+        try{
+            iUserService.save(sysUser);
+            return new ResultData(1, StatusCode.OK, "添加成功！", null);
+        } catch(Exception e) {
+            logger.error("UserController->addUser"+e.getMessage());
+            return new ResultData(1, StatusCode.ERROR, "添加失败！", null);
+        }
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResultData updateUser(@RequestBody(required = false) SysUser sysUser) {
+        try{
+            iUserService.saveOrUpdate(sysUser);
+            return new ResultData(1, StatusCode.OK, "添加成功！", null);
+        } catch(Exception e) {
+            logger.error("UserController->addUser"+e.getMessage());
+            return new ResultData(1, StatusCode.ERROR, "添加失败！", null);
+        }
+    }
 
 }

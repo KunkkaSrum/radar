@@ -17,21 +17,23 @@ layui.define(["element","jquery"],function(exports){
 				url : undefined  //获取菜单json地址
 			}
 		};
+
     //生成左侧菜单
     Tab.prototype.navBar = function(strData){
         var data;
         if(typeof(strData) == "string"){
+
             var data = JSON.parse(strData); //部分用户解析出来的是字符串，转换一下
         }else{
             data = strData;
         }
         var ulHtml = '';
         for(var i=0;i<data.length;i++){
-            if(data[i].spread || data[i].spread == undefined){
-                ulHtml += '<li class="layui-nav-item layui-nav-itemed">';
-            }else{
+            // if(data[i].spread || data[i].spread == undefined){
+            //     ulHtml += '<li class="layui-nav-item layui-nav-itemed">';
+            // }else{
                 ulHtml += '<li class="layui-nav-item">';
-            }
+            // }
             if(data[i].children != undefined && data[i].children.length > 0){
                 ulHtml += '<a>';
                 if(data[i].icon != undefined && data[i].icon != ''){
@@ -82,9 +84,10 @@ layui.define(["element","jquery"],function(exports){
     }
 	//获取二级菜单数据
 	Tab.prototype.render = function() {
+    	console.log(type);
 		//显示左侧菜单
 		var _this = this;
-		$(".navBar ul").html('<li class="layui-nav-item layui-this"><a data-url="/main"><i class="layui-icon" data-icon=""></i><cite>监控布防</cite></a></li>').append(_this.navBar(dataStr)).height($(window).height()-210);
+		$(".navBar ul").html(type===1?'<li class="layui-nav-item layui-this"><a data-url="/main"><i class="layui-icon" data-icon=""></i><cite>监控布防</cite></a></li>':'').append(_this.navBar(dataStr)).height($(window).height()-210);
 		// $(".navBar ul").html('').append(_this.navBar(dataStr)).height($(window).height()-210);
 		element.init();  //初始化页面元素
 		$(window).resize(function(){

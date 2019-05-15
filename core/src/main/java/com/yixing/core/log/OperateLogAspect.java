@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -23,7 +22,7 @@ import java.util.Objects;
 
 @Aspect
 @Component
-public class SysLogAspect {
+public class OperateLogAspect {
 
     @Autowired
     private IOperateLogService iOperateLogService;

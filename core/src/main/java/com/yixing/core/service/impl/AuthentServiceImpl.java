@@ -66,7 +66,7 @@ public class AuthentServiceImpl implements IAuthentService {
     }
 
     @Override
-    public List<AuthVo> listNav() {
+    public List<AuthVo> listNav(Integer zindex) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
@@ -74,7 +74,7 @@ public class AuthentServiceImpl implements IAuthentService {
         List<Permission> permissions = permissionMapper.listRP(sysUser.getRoleId());
         List<AuthVo> voList = new ArrayList<>();
         for (Permission permission : permissions) {
-            if (permission.getIstype() == 0 && permission.getPid() == 0) {
+            if (permission.getIstype() == 0 && permission.getPid() == 0&& permission.getZindex().equals(zindex)) {
                 AuthVo authVo = new AuthVo(
                         permission.getId(),
                         permission.getName(),
@@ -92,7 +92,7 @@ public class AuthentServiceImpl implements IAuthentService {
         }
         for (AuthVo authVo : voList) {
             for (Permission permission : permissions) {
-                if (authVo.getId() == permission.getPid()) {
+                if (authVo.getId().equals(permission.getPid())) {
                     authVo.getChildren().add(new AuthVo(
                             permission.getId(),
                             permission.getName(),

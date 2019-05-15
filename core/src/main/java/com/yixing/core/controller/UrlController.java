@@ -2,6 +2,7 @@ package com.yixing.core.controller;
 
 import com.yixing.core.dao.PermissionMapper;
 import com.yixing.core.dao.UserMapper;
+import com.yixing.core.log.MyLog;
 import com.yixing.core.model.ResultMap;
 import com.yixing.core.security.SecurityConstants;
 import com.yixing.core.service.IUserService;
@@ -18,13 +19,14 @@ public class UrlController {
     private IUserService iUserService;
     @Autowired
     private UserMapper userMapper;
+
+    @MyLog(value = "访问首页")
     @RequestMapping("/index")
     public String index() {
         return "index";
     }
 
     @RequestMapping("/403")
-    @PreAuthorize("hasPermission('/403','r')")
     public String aa() {
         return "403";
     }
@@ -40,7 +42,6 @@ public class UrlController {
     }
 
     @RequestMapping("/main")
-    @PreAuthorize("hasPermission('/main','r')")
     public String main() {
         return "main";
     }
@@ -80,12 +81,17 @@ public class UrlController {
     }
 
     @RequestMapping("/permission")
-    public String userList() {
+    public String permissionList() {
         return "user/permission/permission";
     }
 
     @RequestMapping("/permission/opt")
-    public String userAdd() {
+    public String permissionAdd() {
         return "user/permission/permissionOpt";
+    }
+
+    @RequestMapping("/log")
+    public String logList() {
+        return "system/operateLog";
     }
 }

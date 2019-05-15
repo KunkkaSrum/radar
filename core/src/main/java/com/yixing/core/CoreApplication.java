@@ -1,6 +1,7 @@
 package com.yixing.core;
 
 import com.yixing.core.security.SecurityConstants;
+import com.yixing.core.util.IdWorker;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,6 +33,11 @@ public class CoreApplication {
         StrictHttpFirewall firewall = new StrictHttpFirewall();
         firewall.setAllowUrlEncodedSlash(true);
         return firewall;
+    }
+
+    @Bean
+    public IdWorker idWorker(){
+        return new IdWorker();
     }
 
 }

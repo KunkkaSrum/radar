@@ -1,4 +1,4 @@
-var $, tab, dataStr, layer;
+var $, tab, dataStr, layer, type = 1;
 layui.config({
     base: "js/"
 }).extend({
@@ -11,7 +11,7 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
     layer = parent.layer === undefined ? layui.layer : top.layer;
     tab = layui.bodyTab({
         openTabNum: "50",  //最大可打开窗口数量
-        url: "json/navs.json" //获取菜单json地址
+        url: "/core/auth/nav" //获取菜单json地址
     });
 
     $(".userName").html(getCookie("username"));
@@ -19,34 +19,40 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
     function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
-        for(var i=0; i<ca.length; i++)
-        {
-            var c = ca[i].trim();
-            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        for (var i = 0; i < ca.length; i++) {
+            var c = $.trim(ca[i]);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
         }
         return "";
     }
+
     //通过顶部菜单获取左侧二三级菜单   注：此处只做演示之用，实际开发中通过接口传参的方式获取导航数据
     function getData(json) {
-        $.getJSON(tab.tabConfig.url, function (data) {
-            if (json == "contentManagement") {
+        if (json == "contentManagement") {
+            $.getJSON("json/navs.json", function (data) {
+                type = 1;
                 dataStr = data.contentManagement;
                 //重新渲染左侧菜单
                 tab.render();
-            } else if (json == "memberCenter") {
-                dataStr = data.memberCenter;
+            });
+        } else if (json == "memberCenter") {
+            type = 2;
+            $.getJSON(tab.tabConfig.url+"?type="+type, function (data) {
+                dataStr = data.data;
                 //重新渲染左侧菜单
                 tab.render();
-            } else if (json == "systemeSttings") {
-                dataStr = data.systemeSttings;
-                //重新渲染左侧菜单
-                tab.render();
-            } else if (json == "seraphApi") {
-                dataStr = data.seraphApi;
-                //重新渲染左侧菜单
-                tab.render();
-            }
-        })
+            });
+            //     } else if (json == "systemeSttings") {
+            //         dataStr = data.systemeSttings;
+            //         //重新渲染左侧菜单
+            //         tab.render();
+            //     } else if (json == "seraphApi") {
+            //         dataStr = data.seraphApi;
+            //         //重新渲染左侧菜单
+            //         tab.render();
+            //     }
+            // })
+        }
     }
 
     //页面加载时判断左侧菜单是否显示
@@ -147,8 +153,28 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
         window.sessionStorage.removeItem("menu");
         window.sessionStorage.removeItem("curmenu");
     }
-})
+    $(".test").click(function () {
+        var index = layui.layer.open({
+            title: "授权",
+            type: 2,
+            anim: '5',
+            area:['300px','600px'],
+            offset: 'r',
+            content: "/role/power",
+            success: function (layero, index) {
+                var body = layui.layer.getChildFrame('body', index);
 
+                console.log("role"+data.id)
+                // setTimeout(function () {
+                //     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
+                //         tips: 3
+                //     });
+                // }, 500)
+            }
+        })
+    })
+})
+var roleId=2;
 //打开新窗口
 function addTab(_this) {
     tab.tabAdd(_this);

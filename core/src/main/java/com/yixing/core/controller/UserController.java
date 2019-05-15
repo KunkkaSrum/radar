@@ -2,6 +2,7 @@ package com.yixing.core.controller;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yixing.core.entity.SysUser;
+import com.yixing.core.log.MyLog;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.StatusCode;
 import com.yixing.core.service.IUserService;
@@ -40,6 +41,7 @@ public class UserController {
     }
 
 
+    @MyLog(value = "添加用户")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResultData addUser(@RequestBody SysUser sysUser) {
         try {
@@ -52,6 +54,7 @@ public class UserController {
         }
     }
 
+    @MyLog(value = "编辑用户")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResultData updateUser(@RequestBody(required = false) SysUser sysUser) {
         try {

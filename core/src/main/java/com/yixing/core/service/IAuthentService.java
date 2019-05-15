@@ -4,7 +4,7 @@ import com.yixing.core.vo.AuthVo;
 
 import java.util.List;
 
-public interface IAuthentService {
+public interface IAuthentService  {
     List<AuthVo> listHasPower(Integer id);
-    List<AuthVo> listNav();
+    List<AuthVo> listNav(Integer zindex);
 }

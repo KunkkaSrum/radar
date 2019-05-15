@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="/plugins/dtree/dtree.css">
     <link rel="stylesheet" href="/plugins/dtree/font/dtreefont.css">
 </head>
-<body>
-<div>
-    <ul id="demoTree" class="dtree" data-id="0"></ul>
-    <button class="layui-btn" id="submit">提交</button>
+<body class="childrenBody">
+<ul id="demoTree" class="dtree" data-id="0"></ul>
+<div style="width: 100%;text-align: center">
+    <button class="layui-btn" id="submit" style="margin:20px auto">提交</button>
 </div>
 <script type="text/javascript" src="/layui/layui.js"></script>
 <script type="text/javascript" src="/plugins/dtree/dtree.js"></script>
@@ -21,14 +21,12 @@
     }).use(['dtree','layer','jquery'], function(){
         var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
         var data =[];
-        console.log(parent.roleID);
         $.ajax({
             url:"/core/auth/power",
             type:"post",
             async:false,
             data:{"id":parent.roleID},
             success:function (result) {
-                console.log(result)
                 data = result.data;
             }
         });
@@ -57,10 +55,12 @@
                 contentType:"application/json",
                 data:JSON.stringify(ids),
                 success:function (result) {
-                    console.log(result);
+                    if(result.code === 2000) {
+                        parent.layer.closeAll();
+                        parent.layer.msg("修改成功");
+                    }
                 }
             });
-            console.log(ids);
         })
     });
 </script>

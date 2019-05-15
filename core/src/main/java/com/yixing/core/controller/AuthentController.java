@@ -16,10 +16,10 @@ public class AuthentController {
     @Autowired
     private IAuthentService iAuthentService;
 
-    @RequestMapping(value = "/nav", method = RequestMethod.POST)
+    @RequestMapping(value = "/nav", method = RequestMethod.GET)
     @ResponseBody
-    public ResultData listNav() {
-        return new ResultData(1, 0, "查询成功！", iAuthentService.listNav());
+    public ResultData listNav(@RequestParam("type")Integer zindex) {
+        return new ResultData(1, 0, "查询成功！", iAuthentService.listNav(zindex));
     }
 
     @RequestMapping(value = "/power", method = RequestMethod.POST)

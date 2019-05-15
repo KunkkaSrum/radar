@@ -64,13 +64,13 @@
         $ = layui.jquery;
         if(window !=top){
             layer.msg("登录已过期，请重新登陆。");
-            setTimeout(function (){top.location.href=location.href}, 3000);
+            setTimeout(function (){top.location.href=location.href}, 2000);
         }
         $(".loginBody .seraph").click(function () {
             layer.msg("这只是做个样式，至于功能，你见过哪个后台能这样登录的？还是老老实实的找管理员去注册吧", {
                 time: 5000
             });
-        })
+        });
 
 
         $("#submit").click(function () {
@@ -88,6 +88,7 @@
                         if(index) {
                             window.parent.location.reload();
                         } else {
+                            setCookie("username", result.data,1);
                             window.location.href = result.msg;
                         }
                     } else if (result.code === 2002) {
@@ -98,7 +99,14 @@
 
                 }
             })
-        })
+        });
+
+        function setCookie(cname,cvalue,exdays) {
+            var d = new Date();
+            d.setTime(d.getTime()+(exdays*24*60*60*1000));
+            var expires = "expires="+d.toGMTString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
 
 
         //表单输入效果

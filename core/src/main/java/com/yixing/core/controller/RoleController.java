@@ -5,15 +5,20 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yixing.core.entity.Role;
+import com.yixing.core.entity.RolePermission;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.StatusCode;
+import com.yixing.core.service.IRolePermissionService;
 import com.yixing.core.service.IRoleService;
+import com.yixing.core.vo.AuthVo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -31,6 +36,9 @@ public class RoleController  {
     
     @Autowired
     private IRoleService iRoleService;
+
+    @Autowired
+    private IRolePermissionService iRolePermissionService;
     
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResultData listRole(@RequestBody(required = false) Role role,
@@ -70,8 +78,29 @@ public class RoleController  {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResultData deleteRole(@RequestParam("RoleNo") Long roleNo ) {
+    public ResultData deleteRole(@RequestParam("roleNo") Long roleNo ) {
         return new ResultData(1, StatusCode.OK, "删除成功！", iRoleService.removeById(roleNo));
     }
 
+    @RequestMapping(value = "/update/auth", method = RequestMethod.POST)
+    public ResultData updateRole(@RequestBody(required = false)String[] ids,
+                                 @RequestParam("id")Integer id) {
+        try{
+            RolePermission rolePermission1 = new RolePermission(null,id);
+            QueryWrapper<RolePermission> wrapper = new QueryWrapper<>(rolePermission1);
+            iRolePermissionService.remove(wrapper);
+            List<RolePermission> rolePermissions = new ArrayList<>();
+            for(String i:ids) {
+                RolePermission rolePermission = new RolePermission();
+                rolePermission.setPermitId(Integer.valueOf(i));
+                rolePermission.setRoleId(id);
+                rolePermissions.add(rolePermission);
+            }
+            iRolePermissionService.saveBatch(rolePermissions);
+            return new ResultData(1, StatusCode.OK, "更新成功！", null);
+        } catch(Exception e) {
+            logger.error("RoleController->updateRole"+e.getMessage());
+            return new ResultData(1, StatusCode.ERROR, "更新失败！", e.getMessage());
+        }
+    }
 }

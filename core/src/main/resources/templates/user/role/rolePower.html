@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>授权</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/css/public.css" media="all" />
+    <link rel="stylesheet" href="/plugins/dtree/dtree.css">
+    <link rel="stylesheet" href="/plugins/dtree/font/dtreefont.css">
+</head>
+<body>
+<div>
+    <ul id="demoTree" class="dtree" data-id="0"></ul>
+    <button class="layui-btn" id="submit">提交</button>
+</div>
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="/plugins/dtree/dtree.js"></script>
+<script>
+    layui.extend({
+        dtree: '/plugins/dtree/dtree'   // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    }).use(['dtree','layer','jquery'], function(){
+        var dtree = layui.dtree, layer = layui.layer, $ = layui.jquery;
+        var data =[];
+        console.log(parent.roleID);
+        $.ajax({
+            url:"/core/auth/power",
+            type:"post",
+            async:false,
+            data:{"id":parent.roleID},
+            success:function (result) {
+                console.log(result)
+                data = result.data;
+            }
+        });
+        var DemoTree = dtree.render({
+            elem: "#demoTree",
+            data: data,
+            type: "all",
+            dataFormat: "list",
+            checkbar:true,
+            initLevel: "2"
+        });
+
+        dtree.on("node('demoTree')" ,function(obj){
+            layer.msg(JSON.stringify(obj.param));
+        });
+
+        $("#submit").click(function () {
+            var param = dtree.getCheckbarNodesParam(DemoTree);
+            var ids=[];
+            for(var i in param) {
+                ids.push(param[i].nodeId);
+            }
+            $.ajax({
+                url:"/core/role/update/auth?id="+parent.roleID,
+                type:"post",
+                contentType:"application/json",
+                data:JSON.stringify(ids),
+                success:function (result) {
+                    console.log(result);
+                }
+            });
+            console.log(ids);
+        })
+    });
+</script>
+</body>
+</html>

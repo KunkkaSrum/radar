@@ -1,6 +1,8 @@
 package com.yixing.core.controller;
 
 
+import com.yixing.core.service.IRolePermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,5 +17,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/core/role-permission")
 public class RolePermissionController  {
-
 }

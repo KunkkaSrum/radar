@@ -89,19 +89,7 @@
 				"username":data.username,
 				"email":data.email,
 				"mobile":data.mobile
-			}
-			// 实际使用时的提交信息
-			// $.post("上传路径",{
-			//     userName : $(".userName").val(),  //登录名
-			//     userEmail : $(".userEmail").val(),  //邮箱
-			//     userSex : data.field.sex,  //性别
-			//     userGrade : data.field.userGrade,  //会员等级
-			//     userStatus : data.field.userStatus,    //用户状态
-			//     newsTime : submitTime,    //添加时间
-			//     userDesc : $(".userDesc").text(),    //用户简介
-			// },function(res){
-			//
-			// })
+			};
 			var url ="";
 			if(data.userNo.length>0) {
 				url = "/core/user/update";
@@ -117,7 +105,7 @@
 					success: function (result) {
 						console.log(result);
                         top.layer.close(index);
-                        top.layer.msg("操作成功！");
+                        top.layer.msg("操作成功");
                         parent.layer.closeAll();
                         //刷新父页面
                         parent.layui.table.reload("newsListTable");
@@ -126,7 +114,7 @@
 
 			},1000);
 			return false;
-		})
+		});
 
 		//格式化时间
 		function filterTime(val){

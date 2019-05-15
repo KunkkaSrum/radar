@@ -27,12 +27,9 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String username = ((User) authentication.getPrincipal()).getUsername();
-        log.info("认证成功，用户名：{}", username);
-
         try {
             response.setContentType("application/json;charset=UTF-8");
-//             response.sendRedirect(SecurityConstants.LOGIN_SUCCESS_URL);
-            response.getWriter().write(JSONObject.toJSONString(new ResultData(0, StatusCode.OK,SecurityConstants.LOGIN_SUCCESS_URL,null)));
+            response.getWriter().write(JSONObject.toJSONString(new ResultData(0, StatusCode.OK,SecurityConstants.LOGIN_SUCCESS_URL,username)));
         } catch (IOException e) {
             e.printStackTrace();
         }

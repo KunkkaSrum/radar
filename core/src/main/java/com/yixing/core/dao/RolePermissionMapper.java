@@ -17,6 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface RolePermissionMapper extends BaseMapper<RolePermission> {
-    @Select("SELECT p.* from permission p,role_permission rp WHERE p.id = rp.permit_id and rp.role_id = #{roleId}")
-    List<RolePermission> listRP(Integer roleId);
+
 }

@@ -69,7 +69,7 @@ public class PermissionController  {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ResultData deletePermission(@RequestParam("PermissionNo") Long permissionNo ) {
+    public ResultData deletePermission(@RequestParam("permissionNo") Long permissionNo ) {
         return new ResultData(1, StatusCode.OK, "删除成功！", iPermissionService.removeById(permissionNo));
     }
 }

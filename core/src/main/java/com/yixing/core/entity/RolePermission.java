@@ -18,11 +18,11 @@ import lombok.experimental.Accessors;
 //@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("role_permission")
-public class RolePermission extends Permission {
+public class RolePermission {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "permit_id", type = IdType.AUTO)
+//    @TableId(value = "permit_id", type = IdType.AUTO)
     private Integer permitId;
 
     private Integer roleId;

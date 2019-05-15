@@ -74,6 +74,11 @@ public class UrlController {
         return "user/role/roleOpt";
     }
 
+    @RequestMapping("/role/power")
+    public String rolePower() {
+        return "user/role/rolePower";
+    }
+
     @RequestMapping("/permission")
     public String userList() {
         return "user/permission/permission";

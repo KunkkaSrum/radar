@@ -1,10 +1,6 @@
 package com.yixing.core.controller;
-
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.yixing.core.dao.UserMapper;
 import com.yixing.core.entity.SysUser;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.StatusCode;
@@ -12,18 +8,9 @@ import com.yixing.core.service.IUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Collection;
-import java.util.Date;
 
 
 /**
@@ -69,8 +56,8 @@ public class UserController {
     public ResultData updateUser(@RequestBody(required = false) SysUser sysUser) {
         try {
             sysUser.setUpdateTime(LocalDateTime.now());
-            UpdateWrapper<SysUser> wrapper = new UpdateWrapper<>();
-            wrapper.eq("user_no", sysUser.getUserNo());
+//            UpdateWrapper<SysUser> wrapper = new UpdateWrapper<>();
+//            wrapper.eq("user_no", sysUser.getUserNo());
             iUserService.updateById(sysUser);
             return new ResultData(1, StatusCode.OK, "更新成功！", null);
         } catch (Exception e) {
@@ -90,9 +77,6 @@ public class UserController {
         return new ResultData(1, 0, "查询成功！", iUserService.getByUserName(username));
     }
 
-    @RequestMapping(value = "/nav", method = RequestMethod.GET)
-    public ResultData listNav() {
-        return new ResultData(1, 0, "查询成功！", iUserService.listNav());
-    }
+
 
 }

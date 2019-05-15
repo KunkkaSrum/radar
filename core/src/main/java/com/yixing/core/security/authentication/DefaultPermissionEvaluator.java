@@ -1,5 +1,6 @@
 package com.yixing.core.security.authentication;
 
+import com.yixing.core.entity.Permission;
 import com.yixing.core.entity.RolePermission;
 import com.yixing.core.service.IPermissionService;
 import com.yixing.core.service.IRolePermissionService;
@@ -38,14 +39,14 @@ public class DefaultPermissionEvaluator implements PermissionEvaluator {
             String roleId = authority.getAuthority();
 //            Integer roleId = roleService.getByName(roleName).getId();
             // 得到角色所有的权限
-            List<RolePermission> rolePermissions = iRolePermissionService.listRP(Integer.valueOf(roleId));
+            List<Permission> rolePermissions = iPermissionService.listRP(Integer.valueOf(roleId));
             System.out.println(rolePermissions.size());
             // 遍历permissionList
-            for(RolePermission rolePermission : rolePermissions) {
+            for(Permission permission : rolePermissions) {
                 // 获取权限集
 //                List permissions = rolePermission.getPermissions();
                 // 如果访问的Url和权限用户符合的话，返回true
-                if(targetUrl.equals(rolePermission.getHref())) {
+                if(targetUrl.equals(permission.getHref())) {
                     System.out.println(targetUrl);
                     return true;
                 }

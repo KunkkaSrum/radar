@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>用户中心--layui后台管理模板 2.0</title>
+    <title>菜单中心--layui后台管理模板 2.0</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,19 +23,18 @@
                 <a class="layui-btn search_btn" data-type="reload">搜索</a>
             </div>
             <div class="layui-inline">
-                <a class="layui-btn layui-btn-normal addNews_btn">添加用户</a>
+                <a class="layui-btn layui-btn-normal addNews_btn">添加菜单</a>
             </div>
             <div class="layui-inline">
                 <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
             </div>
         </form>
     </blockquote>
-    <table id="userList" lay-filter="userList"></table>
+    <table id="permissionList" lay-filter="permissionList"></table>
 
     <!--操作-->
-    <script type="text/html" id="userListBar">
+    <script type="text/html" id="permissionListBar">
         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">已启用</a>
         <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
     </script>
 </form>
@@ -48,43 +47,27 @@
             laytpl = layui.laytpl,
             table = layui.table;
 
-        //用户列表
+        //菜单列表
         var tableIns = table.render({
-            elem: '#userList',
-            url : '/json/userList.json',
+            elem: '#permissionList',
+            url : '/core/permission/page',
             cellMinWidth : 95,
             page : true,
             height : "full-125",
             limits : [10,15,20,25],
             limit : 20,
-            id : "userListTable",
+            id : "permissionListTable",
             cols : [
                 [
-                {type: "checkbox", fixed:"left", width:50},
-                {field: 'userName', title: '用户名', minWidth:100, align:"center"},
-                {field: 'userEmail', title: '用户邮箱', minWidth:200, align:'center',templet:function(d){
-                        return '<a class="layui-blue" href="mailto:'+d.userEmail+'">'+d.userEmail+'</a>';
-                    }},
-                {field: 'userSex', title: '用户性别', align:'center'},
-                {field: 'userStatus', title: '用户状态',  align:'center',templet:function(d){
-                        return d.userStatus == "0" ? "正常使用" : "限制使用";
-                    }},
-                {field: 'userGrade', title: '用户等级', align:'center',templet:function(d){
-                        if(d.userGrade == "0"){
-                            return "注册会员";
-                        }else if(d.userGrade == "1"){
-                            return "中级会员";
-                        }else if(d.userGrade == "2"){
-                            return "高级会员";
-                        }else if(d.userGrade == "3"){
-                            return "钻石会员";
-                        }else if(d.userGrade == "4"){
-                            return "超级会员";
-                        }
-                    }},
-                {field: 'userEndTime', title: '最后登录时间', align:'center',minWidth:150},
-                {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
-            ]
+                    {type: "checkbox", fixed:"left", width:50},
+                    {field: 'name', title: '菜单名', minWidth:100, align:"center"},
+                    {field: 'descpt', title: '菜单描述', minWidth:200, align:'center'},
+                    {field: 'code', title: '菜单编码', align:'center'},
+                    {field: 'href', title: '菜单url',  align:'center'},
+                    {field: 'insertTime', title: '添加时间', align:'center',minWidth:150},
+                    {field: 'updateTime', title: '修改时间', align:'center',minWidth:150},
+                    {title: '操作', minWidth:125, templet:'#permissionListBar',fixed:"right",align:"center"}
+                ]
             ]
         });
 
@@ -104,25 +87,25 @@
             }
         });
 
-        //添加用户
-        function addUser(edit){
+        //添加菜单
+        function optPermission(edit){
+            console.log(edit)
             var index = layui.layer.open({
-                title : "添加用户",
+                title : edit?"编辑菜单":"添加菜单",
                 type : 2,
-                content : "/user/add",
+                content : "/permission/opt",
                 success : function(layero, index){
                     var body = layui.layer.getChildFrame('body', index);
                     if(edit){
-                        body.find(".userName").val(edit.userName);  //登录名
-                        body.find(".userEmail").val(edit.userEmail);  //邮箱
-                        body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
-                        body.find(".userGrade").val(edit.userGrade);  //会员等级
-                        body.find(".userStatus").val(edit.userStatus);    //用户状态
-                        body.find(".userDesc").text(edit.userDesc);    //用户简介
+                        body.find("#permissionNo").val(edit.permissionNo);
+                        body.find(".name").val(edit.name);  //登录名
+                        body.find(".descpt").val(edit.descpt);  //邮箱
+                        body.find(".code").val(edit.code);  //会员等级
+                        body.find(".href").val(edit.href);  //会员等级
                         form.render();
                     }
                     setTimeout(function(){
-                        layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                        layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
                             tips: 3
                         });
                     },500)
@@ -136,19 +119,19 @@
             })
         }
         $(".addNews_btn").click(function(){
-            addUser();
+            optPermission();
         })
 
         //批量删除
         $(".delAll_btn").click(function(){
-            var checkStatus = table.checkStatus('userListTable'),
+            var checkStatus = table.checkStatus('permissionListTable'),
                 data = checkStatus.data,
                 newsId = [];
             if(data.length > 0) {
                 for (var i in data) {
                     newsId.push(data[i].newsId);
                 }
-                layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
+                layer.confirm('确定删除选中的菜单？', {icon: 3, title: '提示信息'}, function (index) {
                     // $.get("删除文章接口",{
                     //     newsId : newsId  //将需要删除的newsId作为参数传入
                     // },function(data){
@@ -157,45 +140,31 @@
                     // })
                 })
             }else{
-                layer.msg("请选择需要删除的用户");
+                layer.msg("请选择需要删除的菜单");
             }
         })
 
         //列表操作
-        table.on('tool(userList)', function(obj){
+        table.on('tool(permissionList)', function(obj){
             var layEvent = obj.event,
                 data = obj.data;
 
             if(layEvent === 'edit'){ //编辑
-                addUser(data);
-            }else if(layEvent === 'usable'){ //启用禁用
-                var _this = $(this),
-                    usableText = "是否确定禁用此用户？",
-                    btnText = "已禁用";
-                if(_this.text()=="已禁用"){
-                    usableText = "是否确定启用此用户？",
-                        btnText = "已启用";
-                }
-                layer.confirm(usableText,{
-                    icon: 3,
-                    title:'系统提示',
-                    cancel : function(index){
-                        layer.close(index);
-                    }
-                },function(index){
-                    _this.text(btnText);
-                    layer.close(index);
-                },function(index){
-                    layer.close(index);
-                });
+                optPermission(data);
             }else if(layEvent === 'del'){ //删除
-                layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-                    // $.get("删除文章接口",{
-                    //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                    // },function(data){
-                    tableIns.reload();
-                    layer.close(index);
-                    // })
+                layer.confirm('确定删除此菜单？',{icon:3, title:'提示信息'},function(index){
+                    $.ajax({
+                        url:"/core/permission/delete",
+                        type:"post",
+                        data: {"permissionNo": data.permissionNo},
+                        success:function (result) {
+                            if(result.code===2000) {
+                                layer.close(index);
+                                layer.msg("删除成功");
+                                table.reload("permissionListTable");
+                            }
+                        }
+                    })
                 });
             }
         });

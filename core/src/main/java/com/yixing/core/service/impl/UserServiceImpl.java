@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yixing.core.dao.PermissionMapper;
 import com.yixing.core.dao.RolePermissionMapper;
 import com.yixing.core.dao.UserExtMapper;
 import com.yixing.core.dao.UserMapper;
+import com.yixing.core.entity.Permission;
 import com.yixing.core.entity.RolePermission;
 import com.yixing.core.entity.SysUser;
 import com.yixing.core.service.IUserService;
@@ -32,7 +34,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
     @Autowired
     private UserExtMapper userExtMapper;
     @Autowired
-    private RolePermissionMapper rolePermissionMapper;
+    private PermissionMapper permissionMapper;
 
     @Override
     public SysUser getByUserName(String username) {
@@ -46,14 +48,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
         page1.setCurrent(page);
         page1.setSize(size);
         return userMapper.selectPage(page1,queryWrapper);
-    }
-
-    @Override
-    public List<RolePermission> listNav() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
-        SysUser sysUser = userExtMapper.getByUserName(userDetails.getUsername());
-        return rolePermissionMapper.listRP(sysUser.getRoleId());
     }
 }

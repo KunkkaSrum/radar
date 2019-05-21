@@ -112,9 +112,11 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
             layer.msg("缓存清除成功！");
         }, 1000);
     })
+    console.log(cacheStr);
 
     //刷新后还原打开的窗口
     if (cacheStr == "true") {
+        console.log(window.sessionStorage.getItem("menu") )
         if (window.sessionStorage.getItem("menu") != null) {
             menu = JSON.parse(window.sessionStorage.getItem("menu"));
             curmenu = window.sessionStorage.getItem("curmenu");
@@ -153,24 +155,12 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function () {
         window.sessionStorage.removeItem("menu");
         window.sessionStorage.removeItem("curmenu");
     }
-    $(".test").click(function () {
+    $("#editUser").click(function () {
         var index = layui.layer.open({
-            title: "授权",
+            title: "个人资料",
             type: 2,
-            anim: '5',
-            area:['300px','600px'],
-            offset: 'r',
-            content: "/role/power",
-            success: function (layero, index) {
-                var body = layui.layer.getChildFrame('body', index);
-
-                console.log("role"+data.id)
-                // setTimeout(function () {
-                //     layui.layer.tips('点击此处返回', '.layui-layer-setwin .layui-layer-close', {
-                //         tips: 3
-                //     });
-                // }, 500)
-            }
+            area:['800px','600px'],
+            content: "/userInfo"
         })
     })
 })

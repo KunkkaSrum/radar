@@ -11,6 +11,7 @@ import com.yixing.core.model.StatusCode;
 import com.yixing.core.service.IRolePermissionService;
 import com.yixing.core.service.IRoleService;
 import com.yixing.core.vo.AuthVo;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ public class RoleController  {
         return new ResultData(1, StatusCode.OK, "删除成功！", iRoleService.removeById(roleNo));
     }
 
+    @ApiOperation(value = "修改角色权限",     notes = "修改角色权限")
     @RequestMapping(value = "/update/auth", method = RequestMethod.POST)
     public ResultData updateRole(@RequestBody(required = false)String[] ids,
                                  @RequestParam("id")Integer id) {

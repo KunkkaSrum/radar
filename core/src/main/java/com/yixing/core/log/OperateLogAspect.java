@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -39,7 +40,6 @@ public class OperateLogAspect {
     //切面 配置通知
     @AfterReturning("logPoinCut()")
     public void saveSysLog(JoinPoint joinPoint) {
-        System.out.println("切面。。。。。");
         //保存日志
         OperateLog sysLog = new OperateLog();
         sysLog.setLogNo(idWorker.nextId());
@@ -55,24 +55,34 @@ public class OperateLogAspect {
             sysLog.setOperation(value);//保存获取的操作
         }
 
-//        //获取请求的类名
-//        String className = joinPoint.getTarget().getClass().getName();
-//        //获取请求的方法名
-//        String methodName = method.getName();
+        //获取请求的类名
+        String className = joinPoint.getTarget().getClass().getName();
+        //获取请求的方法名
+        String methodName = method.getName();
 //        sysLog.setMethod(className + "." + methodName);
+        System.out.println(methodName);
 
 //        //请求的参数
 //        Object[] args = joinPoint.getArgs();
 //        //将参数所在的数组转换成json
 //        String params = JSON.toJSONString(args);
 //        sysLog.setParams(params);
-
+        UserDetails userDetails = null;
         sysLog.setCreateTime(new Date());
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
+        if (SecurityContextHolder.getContext()
+                .getAuthentication() != null) {
+            userDetails = (UserDetails) SecurityContextHolder.getContext()
+                    .getAuthentication()
+                    .getPrincipal();
+        }
         //获取用户名
-        sysLog.setUsername(userDetails.getUsername());
+        if (userDetails != null) {
+            sysLog.setUsername(userDetails.getUsername());
+        } else {
+            sysLog.setUsername("游客");
+        }
+
+
 //        //获取用户ip地址
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder
                 .getRequestAttributes()))

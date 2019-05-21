@@ -39,9 +39,10 @@
             initLevel: "2"
         });
 
-        dtree.on("node('demoTree')" ,function(obj){
-            layer.msg(JSON.stringify(obj.param));
-        });
+        // dtree.on("node('demoTree')" ,function(obj){
+        //     layer.msg(JSON.stringify(obj.param));
+        //     // dtree.chooseDataInit("demoTree", obj.param.nodeId);
+        // });
 
         $("#submit").click(function () {
             var param = dtree.getCheckbarNodesParam(DemoTree);

@@ -38,6 +38,13 @@ public class SysUser {
     private Long userNo;
     private String username;
 
+    private String name;
+
+    private Integer sex;
+
+
+    private String address;
+
     /**
      * 手机号
      */
@@ -62,13 +69,13 @@ public class SysUser {
     /**
      * 注册时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8")
     private LocalDateTime insertTime;
 
     /**
      * 修改时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8")
     private LocalDateTime updateTime;
 
     /**
@@ -89,7 +96,7 @@ public class SysUser {
     /**
      * 短信发送时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8" )
     private LocalDateTime sendTime;
 
     /**
@@ -101,6 +108,29 @@ public class SysUser {
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

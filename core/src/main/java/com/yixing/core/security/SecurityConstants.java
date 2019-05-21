@@ -14,6 +14,7 @@ public class SecurityConstants {
     /**
      * 退出登录的 Url
      */
+
     public static final String LOGOUT_URL = "/logout";
     /**
      * 登陆成功后，被引导跳转的 Url

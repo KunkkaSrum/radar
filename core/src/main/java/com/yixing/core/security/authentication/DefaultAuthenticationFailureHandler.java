@@ -2,6 +2,7 @@ package com.yixing.core.security.authentication;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yixing.core.log.MyLog;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.ResultMap;
 import com.yixing.core.model.StatusCode;
@@ -25,6 +26,7 @@ public class DefaultAuthenticationFailureHandler implements AuthenticationFailur
     private ObjectMapper objectMapper;
 
     @Override
+    @MyLog(value = "登录")
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String json = objectMapper.writeValueAsString(new ResultMap(getClass() + ":onAuthenticationFailure()", exception.getMessage()));
         response.setContentType("application/json;charset=UTF-8");

@@ -1,5 +1,5 @@
 package com.yixing.core.controller;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yixing.core.entity.SysUser;
 import com.yixing.core.log.MyLog;
@@ -9,6 +9,9 @@ import com.yixing.core.service.IUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -42,6 +45,7 @@ public class UserController {
 
 
     @MyLog(value = "添加用户")
+    @PreAuthorize("hasPermission('/core/user/add','c')")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResultData addUser(@RequestBody SysUser sysUser) {
         try {
@@ -55,12 +59,11 @@ public class UserController {
     }
 
     @MyLog(value = "编辑用户")
+    @PreAuthorize("hasPermission('/core/user/update','u')")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResultData updateUser(@RequestBody(required = false) SysUser sysUser) {
         try {
             sysUser.setUpdateTime(LocalDateTime.now());
-//            UpdateWrapper<SysUser> wrapper = new UpdateWrapper<>();
-//            wrapper.eq("user_no", sysUser.getUserNo());
             iUserService.updateById(sysUser);
             return new ResultData(1, StatusCode.OK, "更新成功！", null);
         } catch (Exception e) {
@@ -69,17 +72,18 @@ public class UserController {
         }
     }
 
+    @MyLog(value = "删除用户")
+    @PreAuthorize("hasPermission('/core/user/delete','d')")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ResultData deleteUser(@RequestParam("userNo") Long userNo) {
         return new ResultData(1, StatusCode.OK, "删除成功！", iUserService.removeById(userNo));
     }
 
-
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ResultData listUser(@RequestParam("username") String username) {
-        return new ResultData(1, 0, "查询成功！", iUserService.getByUserName(username));
+    @RequestMapping(value = "/get/login", method = RequestMethod.GET)
+    public ResultData getLogin() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        return new ResultData(1, StatusCode.OK, "查询成功!",iUserService.getByUserName(userDetails.getUsername()));
     }
-
-
-
 }

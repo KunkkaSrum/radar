@@ -16,9 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-
 import javax.sql.DataSource;
-
 //import com.yixing.core.security.code.ValidateCodeSecurityConfig;
 
 /**
@@ -39,10 +37,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DefaultLogoutSuccessHandler logoutSuccessHandler;
     @Autowired
     private DefaultUserDetailsService userDetailService;
-//    @Autowired
+    //    @Autowired
 //    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private MyAccessDeniedHandler myAccessDeniedHandler;
 
 
     @Bean
@@ -105,7 +106,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置登陆成功/失败处理逻辑
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
-                .permitAll().and()
+//                .permitAll()
+                .and()
                 .logout()
                 .logoutUrl(SecurityConstants.LOGOUT_URL)
                 .logoutSuccessHandler(logoutSuccessHandler)
@@ -113,7 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .invalidSessionUrl(SecurityConstants.INVALID_SESSION_URL)
                 // 单用户最大session数
-                .maximumSessions(1)
+                .maximumSessions(2)
                 // 当达到maximumSessions时，是否保留已经登录的用户
                 .maxSessionsPreventsLogin(false)
                 // 当达到maximumSessions时，旧用户被踢出后的操作
@@ -121,7 +123,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionRegistry(sessionRegistry()).and().and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
-                // 有效时间：单位s
+                // 有效时间：单位s`
                 .tokenValiditySeconds(60)
                 .userDetailsService(userDetailService).and()
                 .authorizeRequests()
@@ -130,17 +132,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         SecurityConstants.VALIDATE_CODE_URL_PREFIX + "/*",
                         SecurityConstants.INVALID_SESSION_URL,
                         SecurityConstants.PAGE_404
-                ).permitAll()
+                )
+                .permitAll()
                 .anyRequest()
-                .authenticated().and()
-                // 关闭CSRF跨域
+                .authenticated()
+                .and()
+//                 关闭CSRF跨域
                 .csrf().disable();
+
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 设置拦截忽略文件夹，可以对静态资源放行
-        web.ignoring().antMatchers("/layui/**","/plugins/**", "/js/**", "/css/**", "/json/**", "/images/**","/layui/font/**","/layui/css/**");
+        web.ignoring().antMatchers("/layui/**", "/plugins/**", "/js/**", "/css/**", "/json/**", "/images/**", "/layui/font/**", "/layui/css/**");
 
     }
 }

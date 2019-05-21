@@ -21,7 +21,7 @@ public class OperateLog  {
     private String username;
     private String operation;
     private String ip;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8")
     private Date createTime;
 
     public Long getId() {

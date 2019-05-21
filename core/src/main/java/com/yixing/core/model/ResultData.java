@@ -12,6 +12,11 @@ public class ResultData {
         super();
     }
 
+    public ResultData(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     public ResultData(long count, int code, String msg, Object data) {
         this.count = count;
         this.code = code;

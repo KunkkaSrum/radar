@@ -3361,7 +3361,7 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-upload-list {
-    margin: 10px 0
+    margin: 20px 0 50px 0;
 }
 
 .layui-upload-choose {

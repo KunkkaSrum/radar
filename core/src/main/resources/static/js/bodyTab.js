@@ -284,6 +284,7 @@ layui.define(["element","jquery"],function(exports){
 	$("body").on("click",".top_tab li",function(){
 		var curmenu = '';
 		var menu = JSON.parse(window.sessionStorage.getItem("menu"));
+
         if(window.sessionStorage.getItem("menu")) {
             curmenu = menu[$(this).index() - 1];
         }

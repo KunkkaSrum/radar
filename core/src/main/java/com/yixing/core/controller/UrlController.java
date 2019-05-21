@@ -7,9 +7,11 @@ import com.yixing.core.model.ResultMap;
 import com.yixing.core.security.SecurityConstants;
 import com.yixing.core.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 public class UrlController {
@@ -41,6 +43,16 @@ public class UrlController {
         return "login/login";
     }
 
+    @MyLog(value = "登出")
+    @RequestMapping("/logout-log")
+    public void logout(HttpServletResponse response){
+        try {
+            response.sendRedirect(SecurityConstants.LOGOUT_URL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @RequestMapping("/main")
     public String main() {
         return "main";
@@ -55,6 +67,11 @@ public class UrlController {
     }
 
     /****************用户管理***************/
+    @RequestMapping("/userInfo")
+    public String userInfo() {
+        return "user/userInfo";
+    }
+
     @RequestMapping("/account")
     public String account() {
         return "user/account/account";

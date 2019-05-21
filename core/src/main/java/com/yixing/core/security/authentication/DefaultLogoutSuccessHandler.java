@@ -1,5 +1,6 @@
 package com.yixing.core.security.authentication;
 
+import com.yixing.core.log.MyLog;
 import com.yixing.core.security.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ public class DefaultLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         try{
-            response.sendRedirect(SecurityConstants.UN_AUTHENTICATION_URL);
+            response.sendRedirect(SecurityConstants.INVALID_SESSION_URL);
         } catch (Exception e) {
             e.printStackTrace();
         }

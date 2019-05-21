@@ -1,6 +1,7 @@
 package com.yixing.core.security.authentication;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yixing.core.log.MyLog;
 import com.yixing.core.model.ResultData;
 import com.yixing.core.model.StatusCode;
 import com.yixing.core.security.SecurityConstants;
@@ -25,6 +26,7 @@ import java.io.IOException;
 public class DefaultAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
+    @MyLog(value = "登录")
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String username = ((User) authentication.getPrincipal()).getUsername();
         try {

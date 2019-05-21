@@ -36,6 +36,7 @@
 .panel_word span{ font-size:25px; display:block; height:34px; }
 .panel .loginTime{ font-size:15px; color:#1E9FFF; line-height:17px;}
 .panel em{ font-style:normal;}
+.user-body {margin-top: 20px}
 .history_box{ min-height:500px; height:500px; overflow-y:scroll; padding:10px !important;}
 .history_box .layui-timeline .layui-timeline-item:last-child{ padding-bottom:0;}
 @media screen and (max-width:1200px) {
@@ -47,7 +48,7 @@
 form input.layui-input[disabled]{ background:#f2f2f2; color:#595963!important; }
 .user_right{ text-align: center; }
 .user_right p{ margin:10px 0 25px; font-size: 12px; text-align: center; color: #FF5722;}
-.user_right img#userFace{ width:200px; height:200px; margin-top:20px; cursor:pointer; box-shadow:0 0 50px #44576b; }
+.user_right img#userFace{ width:100px; height:100px; margin-top:20px; cursor:pointer; box-shadow:0 0 50px #44576b; }
 .userAddress.layui-form-item .layui-input-inline{ width:23%; }
 .userAddress.layui-form-item .layui-input-inline:last-child{ margin-right:0; }
 /*下拉多选*/
